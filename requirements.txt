@@ -1,0 +1,7 @@
+pandas
+numpy
+python-dotenv
+beautifulsoup4
+google-cloud-bigquery
+pandas-gbq
+requests

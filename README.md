@@ -83,7 +83,7 @@ Modos de envio disponíveis:
 Dados de empresas concorrentes (web scraping):
 - `company_id` (PK), `company`, `headquarters`, `countries`, `locations`, `employees`
 
-![image.png](attachment:image.png)
+![alt text](image-1.png)
 
 ## 🚀 Configuração do Ambiente
 
@@ -138,7 +138,7 @@ jupyter notebook notebooks/etl_superstore.ipynb
 
 O projeto define uma estratégia de atualização que respeita as dependências do modelo dimensional:
 
-![image.png](attachment:image.png)
+![alt text](image.png)
 
 
 ## 📝 Licença

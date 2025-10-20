@@ -1,4 +1,4 @@
-company,headquarters,served_countries,number_of_locations,number_of_employees,number_of_locations_num,number_of_employees_num,countries_count,company_id
+﻿company,headquarters,served_countries,number_of_locations,number_of_employees,number_of_locations_num,number_of_employees_num,countries_count,company_id
 7-Eleven,Japan United States,"Australia, Canada, China, Cambodia, Denmark, Hong Kong, Israel, Macau, Malaysia, Mexico, Norway, Philippines, Singapore, South Korea, Sweden, Taiwan, Thailand",85000,170000,85000.0,170000.0,17,1
 Aeon,Japan,"Australia, Cambodia, China, Hong Kong, India, Indonesia, Laos, Malaysia, Mongolia, Philippines, Singapore, South Korea, Taiwan, Thailand, Vietnam",20008,"560,000+",20008.0,560.0,15,2
 Ahold Delhaize,Netherlands,"Belgium (as Albert Heijn and Delhaize), Czech Republic (as Albert), Greece (as Alfa-Beta Vassilopoulos), Indonesia (as Super Indo), Netherlands (as Albert Heijn, Gall&Gall and Etos), Luxembourg (as Delhaize), Portugal (as Pingo Doce), Romania (as Mega Image), Serbia (as Maxi), United States (as Food Lion, Giant, Hannaford, Stop & Shop)",7659,375000,7659.0,375000.0,14,3

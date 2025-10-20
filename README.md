@@ -1,20 +1,89 @@
 # ETL SuperStore
 
-Este projeto realiza o processamento e análise de dados da SuperStore, implementando um pipeline ETL (Extract, Transform, Load) completo e preparando os dados para análise no BigQuery.
+![Status](https://img.shields.io/badge/Status-Completo-brightgreen) ![Python](https://img.shields.io/badge/Python-3.x-blue) ![BigQuery](https://img.shields.io/badge/BigQuery-Ativo-orange) ![License](https://img.shields.io/badge/License-MIT-green)
+
+Este projeto implementa um **pipeline ETL (Extract, Transform, Load) completo** para o dataset SuperStore, estruturando dados em um modelo dimensional (Star Schema) no BigQuery e preparando-os para análise de negócios avançada.
+
+## 📋 Visão Geral do Projeto
+
+O projeto SuperStore visa criar uma infraestrutura robusta de dados que consolida informações de vendas de múltiplas fontes em um data warehouse centralizado. Através de um processo ETL bem estruturado, os dados são extraídos, transformados conforme padrões de qualidade rigorosos e carregados em tabelas dimensionais otimizadas para análise.
+
+**Objetivos Alcançados:**
+- ✅ Estrutura Star Schema com 7 tabelas (5 dimensões + 1 fato + 1 auxiliar)
+- ✅ 51.290 registros de vendas processados e validados
+- ✅ 371 empresas multinacionais integradas via web scraping
+- ✅ Limpeza conceitual de dados (nulos, duplicados, padronização)
+- ✅ Pipeline de atualização projetado com dependências definidas
+- ✅ Dados prontos para análise de Business Intelligence
+
 
 ## 📂 Estrutura do Projeto
 
 ```
 ETL-SuperStore/
 ├── data/
-│   ├── raw/           # Dados brutos originais
-│   └── processed/     # Dados após processamento
-├── notebooks/         # Jupyter notebooks para análise
-│   └── etl_superstore.ipynb
-├── src/              # Códigos fonte do projeto
-│   └── load_data.py  # Script para carregamento de dados
-└── requirements.txt   # Dependências do projeto
+│   ├── raw/                         
+│   │   ├── superstore_raw.csv       
+│   │   └── multinacional_raw.csv    
+│   └── processed/                    
+│       ├── superstore_final.csv     
+│       └── multinacional_final.csv  
+├── notebooks/                        
+│   └── etl_superstore.ipynb         
+├── src/                            
+│   └── load_data.py                
+├── requirements.txt                 # Dependências Python
+└── README.md                        # Este arquivo
 ```
+
+## 🏗️ Arquitetura de Dados (Star Schema)
+
+O projeto implementa um modelo dimensional **Star Schema** com a seguinte estrutura:
+
+### Tabela de Fatos: **FatoVendas**
+Contém as métricas de negócio agregadas por transação:
+
+| Coluna | Tipo | Descrição |
+| :--- | :--- | :--- |
+| `sales_id` | INT64 | Chave primária (identificador único da venda) |
+| `date_key_order` | INT64 | FK → DimData (data do pedido) |
+| `date_key_ship` | INT64 | FK → DimData (data de envio) |
+| `customer_key` | INT64 | FK → DimCliente |
+| `product_key` | INT64 | FK → DimProduto |
+| `geo_key` | INT64 | FK → DimGeografia |
+| `ship_key` | INT64 | FK → DimEnvio |
+| `sales` | FLOAT64 | Receita da venda |
+| `profit` | FLOAT64 | Lucro da venda |
+| `quantity` | INT64 | Quantidade de itens |
+| `discount` | FLOAT64 | Desconto aplicado |
+
+### Tabelas de Dimensão
+
+#### **DimData** - Dimensão Temporal
+Contém informações de datas para análise temporal:
+- `date_key` (PK), `order_date`, `ship_date`, `year`, `month`, `day`, `weeknum`
+
+#### **DimCliente** - Dimensão de Clientes
+Informações únicas de cada cliente:
+- `customer_key` (PK), `customer_id`, `customer_name`, `segment`
+
+#### **DimProduto** - Dimensão de Produtos
+Detalhes dos produtos comercializados:
+- `product_key` (PK), `product_id`, `product_name`, `category`, `sub_category`
+
+#### **DimGeografia** - Dimensão Geográfica
+Localização das vendas:
+- `geo_key` (PK), `country`, `region`, `state`, `city`, `market`, `market2`
+
+#### **DimEnvio** - Dimensão de Envio
+Modos de envio disponíveis:
+- `ship_key` (PK), `ship_mode`
+
+#### **Multinacional** - Dimensão Auxiliar
+Dados de empresas concorrentes (web scraping):
+- `company_id` (PK), `company`, `headquarters`, `countries`, `locations`, `employees`
+
+![image.png](attachment:image.png)
 
 ## 🚀 Configuração do Ambiente
 
@@ -24,7 +93,7 @@ git clone https://github.com/iannacastro/ETL-SuperStore.git
 cd ETL-SuperStore
 ```
 
-2. Crie e ative um ambiente virtual (opcional, mas recomendado):
+2. Crie e ative um ambiente virtual:
 ```bash
 python -m venv venv
 source venv/bin/activate  # Linux/macOS
@@ -35,26 +104,6 @@ source venv/bin/activate  # Linux/macOS
 ```bash
 pip install -r requirements.txt
 ```
-
-## 📊 Dataset
-
-O dataset contém informações sobre vendas da SuperStore, incluindo:
-- Categorias de produtos
-- Informações de vendas e lucros
-- Dados geográficos
-- Informações de clientes
-- Detalhes de envio
-
-### Estrutura dos Dados:
-- Total de registros: 51,290
-- Total de colunas: 27
-- Principais features incluem:
-  - Categoria de produto
-  - Cidade/País/Região
-  - ID e nome do cliente
-  - Dados de pedidos e vendas
-  - Informações de envio
-  - Datas e períodos
 
 ## 💻 Como Usar
 
@@ -81,20 +130,16 @@ jupyter notebook notebooks/etl_superstore.ipynb
 - pandas
 - numpy
 - python-dotenv
-- google-cloud-bigquery
 - pandas-gbq
 - jupyter
 - beautifulsoup4
 
-## 👥 Contribuição
+## 📈 Pipeline de Atualização de Dados
 
-Contribuições são bem-vindas! Para contribuir:
+O projeto define uma estratégia de atualização que respeita as dependências do modelo dimensional:
 
-1. Faça um Fork do projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/NovaFeature`)
-3. Commit suas mudanças (`git commit -m 'Adicionando nova feature'`)
-4. Push para a branch (`git push origin feature/NovaFeature`)
-5. Abra um Pull Request
+![image.png](attachment:image.png)
+
 
 ## 📝 Licença
 
@@ -102,3 +147,5 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ---
 Desenvolvido por [iannacastro](https://github.com/iannacastro)
+**Última atualização:** Outubro 2025  
+**Status:** ✅ Projeto Completo

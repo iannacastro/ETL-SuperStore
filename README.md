@@ -146,6 +146,7 @@ O projeto define uma estratégia de atualização que respeita as dependências 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
 ---
-Desenvolvido por [iannacastro](https://github.com/iannacastro)
-**Última atualização:** Outubro 2025  
-**Status:** ✅ Projeto Completo
+* Desenvolvido por [iannacastro](https://github.com/iannacastro)
+* **Última atualização:** Outubro 2025
+* **Link apresentação:** [ROTA 1 - ETL]([https://github.com/iannacastro](https://www.canva.com/design/DAG2YNHSejk/-Vgk4uGZz33JeOkXUKJ7kA/edit?utm_content=DAG2YNHSejk&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton))
+* **Status:** ✅ Projeto Completo
